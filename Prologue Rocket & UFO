@@ -1,0 +1,14 @@
+(define WIDTH  100)
+(define HEIGHT  60)
+(define MTSCN  (empty-scene WIDTH HEIGHT))
+(define ROCKET )
+(define ROCKET-CENTER-TO-TOP
+  (- HEIGHT (/ (image-height ROCKET) 2)))
+ 
+
+(define (picture-of-rocket.v5 h)
+  (cond
+    [(<= h ROCKET-CENTER-TO-TOP)
+     (place-image ROCKET 50 h MTSCN)]
+    [(> h ROCKET-CENTER-TO-TOP)
+     (place-image ROCKET 50 ROCKET-CENTER-TO-TOP MTSCN)]))
