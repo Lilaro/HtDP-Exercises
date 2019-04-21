@@ -1,14 +1,25 @@
-(define WIDTH  100)
-(define HEIGHT  60)
-(define MTSCN  (empty-scene WIDTH HEIGHT))
-(define ROCKET )
+; Constant definitions
+(define WIDTH 400)
+(define HEIGHT 200)
+(define V 3)
+(define MTSCN (place-image (rectangle WIDTH 10 "solid" "gray")
+                                        (/ WIDTH 2) (- HEIGHT 5)
+               (place-image (rectangle WIDTH HEIGHT "solid" "blue")
+                            (/ WIDTH 2) (/ HEIGHT 2)
+                                        (empty-scene WIDTH HEIGHT))))
+(define ROCKET (overlay (circle 10 "solid" "green")
+         (rectangle 40 4 "solid" "green")))
 (define ROCKET-CENTER-TO-TOP
   (- HEIGHT (/ (image-height ROCKET) 2)))
- 
 
-(define (picture-of-rocket.v5 h)
+; Function definitions
+(define (picture-of-rocket.v5 t)
   (cond
-    [(<= h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET 50 h MTSCN)]
-    [(> h ROCKET-CENTER-TO-TOP)
-     (place-image ROCKET 50 ROCKET-CENTER-TO-TOP MTSCN)]))
+    [(<= (distance t) ROCKET-CENTER-TO-TOP)
+     (place-image ROCKET (/ WIDTH 2) (- (distance t) 10) MTSCN)]
+    [(> (distance t) ROCKET-CENTER-TO-TOP)
+     (place-image ROCKET (/ WIDTH 2) (- ROCKET-CENTER-TO-TOP 10) MTSCN)]))
+(define (distance t)
+  (* V t))
+
+(animate picture-of-rocket.v5)
